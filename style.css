@@ -1,398 +1,1954 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Keluarga Besar Fidus</title>
+:root {
+    --primary-color: #DA020E;
+    --secondary-color: #000000;
+    --accent-color: #FFD700;
+    --light-red: #FF6B6B;
+    --dark-red: #A50000;
+    --gray-color: #333333;
+    --light-gray: #F5F5F5;
+    --white-color: #FFFFFF;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 15px 40px rgba(218, 2, 14, 0.3);
+    --transition: all 0.3s ease;
+    --border-radius: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+body {
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    font-family: 'Poppins', sans-serif;
+    color: var(--white-color);
+    line-height: 1.6;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(218, 2, 14, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(218, 2, 14, 0.1) 0%, transparent 50%);
+    z-index: -1;
+}
+
+/* Header Styles */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(218, 2, 14, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: var(--transition);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.header.sticky {
+    padding: 1.5rem 9%;
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.logo {
+    font-size: 2.5rem;
+    color: var(--white-color);
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    gap: 1rem;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 15px rgba(218, 2, 14, 0.5);
+    transition: var(--transition);
+    animation: rotate 10s linear infinite;
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(218, 2, 14, 0.8);
+}
+
+.logo-text {
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--white-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+}
+
+.logo::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+}
+
+.navbar {
+    display: flex;
+    gap: 3rem;
+}
+
+.navbar a {
+    font-size: 1.6rem;
+    color: var(--white-color);
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    transition: var(--transition);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--primary-color);
+    background: rgba(218, 2, 14, 0.1);
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: var(--transition);
+}
+
+.navbar a:hover::after,
+.navbar a.active::after {
+    width: 80%;
+}
+
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff4757);
+    color: white;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.logout-btn:hover {
+    background: linear-gradient(45deg, #ff4757, #ff3838);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.logout-btn i {
+    font-size: 1.6rem;
+    transition: var(--transition);
+}
+
+.logout-btn:hover i {
+    transform: rotate(15deg);
+}
+
+.logout-btn span {
+    transition: var(--transition);
+}
+
+.logout-btn:hover span {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--white-color);
+    display: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#menu-icon:hover {
+    color: var(--primary-color);
+}
+
+/* Section Styles */
+section {
+    min-height: 100vh;
+    padding: 10rem 9% 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.heading {
+    font-size: 4.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.heading::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color);
+}
+
+.heading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 110px;
+    width: 50px;
+    height: 4px;
+    background: var(--accent-color);
+}
+
+.heading span {
+    color: var(--primary-color);
+    position: relative;
+}
+
+.heading span::after {
+    content: '⚽';
+    position: absolute;
+    top: -10px;
+    right: -25px;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+.section-subtitle {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5rem;
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* Home Section */
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(51, 51, 51, 0.9) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="%23DA020E" opacity="0.1"/></svg>') no-repeat,
+        radial-gradient(circle at 10% 10%, rgba(218, 2, 14, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(218, 2, 14, 0.2) 0%, transparent 40%);
+    background-size: cover, 200% 200%, 200% 200%;
+    animation: moveBackground 20s linear infinite;
+}
+
+.home-content {
+    flex: 1;
+    z-index: 1;
+}
+
+.home-content h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.home-content h1 {
+    font-size: 5.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--white-color);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards, glow 2s ease-in-out infinite;
+    animation-delay: 0.4s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.home-content h1 span {
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.home-content h1 span::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, transparent, rgba(218, 2, 14, 0.3), transparent);
+    z-index: -1;
+}
+
+.tagline {
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--white-color);
+    position: relative;
+    display: inline-block;
+}
+
+.typing-text {
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.typing-text::after {
+    content: '|';
+    position: absolute;
+    right: -8px;
+    animation: blink 1s infinite;
+    color: var(--accent-color);
+}
+
+.home-content p {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 0.6s;
+    line-height: 1.8;
+}
+
+.social-media {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 0.8s;
+}
+
+.social-media a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    font-size: 2.5rem;
+    color: var(--white-color);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-media a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(218, 2, 14, 0.4), transparent);
+    transition: var(--transition);
+}
+
+.social-media a:hover::before {
+    left: 100%;
+}
+
+.social-media a:hover {
+    background: var(--primary-color);
+    color: var(--white-color);
+    transform: translateY(-5px) rotate(5deg);
+    box-shadow: 0 10px 20px rgba(218, 2, 14, 0.4);
+}
+
+.btn {
+    display: inline-block;
+    padding: 1.5rem 3rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--dark-red));
+    color: var(--white-color);
+    font-size: 1.7rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards, pulse 2s ease-in-out infinite;
+    animation-delay: 1s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    background: linear-gradient(45deg, var(--dark-red), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(218, 2, 14, 0.4);
+    border-color: var(--accent-color);
+}
+
+.home-img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.img-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    perspective: 1000px;
+}
+
+.home-img .main-img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: 
+        0 0 50px rgba(218, 2, 14, 0.5),
+        var(--shadow);
+    transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+    transition: var(--transition);
+    animation: float 6s ease-in-out infinite;
+    border: 5px solid var(--primary-color);
+}
+
+.home-img:hover .main-img {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+}
+
+.img-frame {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    z-index: -1;
+    transform: rotate(2deg);
+}
+
+.floating-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.floating-icons i {
+    position: absolute;
+    font-size: 3rem;
+    color: var(--primary-color);
+    opacity: 0.8;
+    text-shadow: 0 0 10px rgba(218, 2, 14, 0.5);
+}
+
+.floating-icons i:nth-child(1) {
+    top: 10%;
+    left: 5%;
+    animation: floatIcon 5s ease-in-out infinite;
+}
+
+.floating-icons i:nth-child(2) {
+    top: 70%;
+    right: 10%;
+    animation: floatIcon 7s ease-in-out infinite 1s;
+}
+
+.floating-icons i:nth-child(3) {
+    bottom: 20%;
+    left: 15%;
+    animation: floatIcon 6s ease-in-out infinite 0.5s;
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.scroll-down a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white-color);
+    font-size: 1.4rem;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.scroll-down i {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    animation: bounce 2s infinite;
+}
+
+.scroll-down:hover {
+    color: var(--accent-color);
+}
+
+/* About Section */
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(51, 51, 51, 0.9) 100%);
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.about-img {
+    flex: 1;
+    position: relative;
+}
+
+.img-wrapper {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 
+        0 0 30px rgba(218, 2, 14, 0.3),
+        var(--shadow);
+    border: 3px solid var(--primary-color);
+}
+
+.about-img img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    filter: grayscale(20%);
+}
+
+.about-img:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+.img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(218, 2, 14, 0.3), transparent);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.about-img:hover .img-overlay {
+    opacity: 1;
+}
+
+.about-content {
+    flex: 1;
+}
+
+.about-content h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+}
+
+.about-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--primary-color);
+}
+
+.about-content p {
+    font-size: 1.8rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.family-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0;
+    gap: 2rem;
+}
+
+.stat {
+    text-align: center;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    background: rgba(218, 2, 14, 0.1);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+    transition: var(--transition);
+    flex: 1;
+}
+
+.stat:hover {
+    transform: translateY(-10px);
+    background: rgba(218, 2, 14, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(218, 2, 14, 0.2);
+}
+
+.stat h4 {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(218, 2, 14, 0.5);
+}
+
+.stat p {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Values Section */
+.values {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(51, 51, 51, 0.95) 100%);
+    padding: 10rem 9% 8rem;
+    position: relative;
+}
+
+.values::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(218, 2, 14, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(218, 2, 14, 0.1) 0%, transparent 50%);
+    z-index: -1;
+}
+
+.values-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.value-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(218, 2, 14, 0.1), transparent);
+    transition: var(--transition);
+}
+
+.value-card:hover::before {
+    left: 100%;
+}
+
+.value-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.value-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(218, 2, 14, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    transition: var(--transition);
+    border: 2px solid var(--primary-color);
+}
+
+.value-card:hover .value-icon {
+    background: var(--primary-color);
+    transform: rotate(360deg);
+    box-shadow: 0 0 20px rgba(218, 2, 14, 0.5);
+}
+
+.value-icon i {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.value-card:hover .value-icon i {
+    color: var(--white-color);
+}
+
+.value-card h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--white-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.value-card p {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+/* Photos Section */
+.photos {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(51, 51, 51, 0.9) 100%);
+    padding: 10rem 9% 8rem;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.gallery-controls {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 1rem 2rem;
+    background: rgba(218, 2, 14, 0.1);
+    color: var(--white-color);
+    border: 2px solid rgba(218, 2, 14, 0.3);
+    border-radius: 50px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-btn:hover {
+    background: rgba(218, 2, 14, 0.3);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(218, 2, 14, 0.5);
+}
+
+.photos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.photos-box {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    height: 300px;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.photos-box:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.photos-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+    filter: brightness(0.9);
+}
+
+.photos-box:hover img {
+    transform: scale(1.1);
+    filter: brightness(1);
+}
+
+.photos-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+    color: var(--white-color);
+    transform: translateY(100%);
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.photos-box:hover .photos-layer {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.photos-layer h4 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.photos-layer p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.photo-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.photos-layer a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    background: white;
+    border-radius: 50%;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.zoom-btn {
+    background: var(--secondary-color);
+}
+
+.download-btn {
+    background: var(--primary-color);
+}
+
+.zoom-btn:hover {
+    background: var(--secondary-color);
+}
+
+.download-btn:hover {
+    background: var(--primary-color);
+}
+
+.download-btn:hover i {
+    color: white;
+}
+
+.photos-layer a i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.zoom-btn i {
+    color: var(--primary-color);
+}
+
+.download-btn i {
+    color: var(--primary-color);
+}
+
+.photos-layer a:hover {
+    transform: scale(1.1);
+}
+
+.view-more {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+/* Family Section */
+.family {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(51, 51, 51, 0.95) 100%);
+    padding: 10rem 9% 8rem;
+}
+
+.family-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.family-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.family-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.member-img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.member-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+    filter: grayscale(30%);
+}
+
+.family-card:hover .member-img img {
+    transform: scale(1.1);
+    filter: grayscale(0%);
+}
+
+.family-card h3 {
+    font-size: 2.2rem;
+    margin: 2rem 0 1rem;
+    color: var(--white-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.family-card p {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0 2rem;
+    line-height: 1.6;
+}
+
+/* Contact Section */
+.contact {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(51, 51, 51, 0.9) 100%);
+    padding: 10rem 9% 8rem;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 5rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background: rgba(218, 2, 14, 0.1);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+}
+
+.info-box:hover {
+    background: rgba(218, 2, 14, 0.2);
+    border-color: var(--primary-color);
+    transform: translateX(10px);
+}
+
+.info-box i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    min-width: 50px;
+    text-align: center;
+}
+
+.info-box h3 {
+    font-size: 1.8rem;
+    color: var(--white-color);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-box p {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.input-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.input-box input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+    border-radius: var(--border-radius);
+    color: var(--white-color);
+    font-size: 1.6rem;
+    transition: var(--transition);
+}
+
+.input-box input:focus,
+.contact-form textarea:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(218, 2, 14, 0.3);
+}
+
+.contact-form textarea {
+    resize: none;
+    margin-bottom: 2rem;
+}
+
+.contact-form .btn {
+    width: 100%;
+}
+
+/* Footer */
+.footer {
+    background: #000000;
+    padding: 6rem 9% 3rem;
+    border-top: 2px solid var(--primary-color);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 4rem;
+    margin-bottom: 3rem;
+}
+
+.footer-col h3 {
+    font-size: 2.2rem;
+    color: var(--white-color);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.footer-col h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--primary-color);
+}
+
+.footer-col p {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 1rem;
+}
+
+.footer-col ul li a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.6rem;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.footer-col ul li a:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.newsletter {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.newsletter input {
+    flex: 1;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+    border-radius: var(--border-radius);
+    color: var(--white-color);
+    font-size: 1.4rem;
+}
+
+.newsletter button {
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1.6rem;
+}
+
+.newsletter button:hover {
+    background: var(--dark-red);
+    transform: scale(1.1);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(218, 2, 14, 0.3);
+}
+
+.footer-bottom p {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-bottom i {
+    color: var(--primary-color);
+    margin: 0 5px;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 5px 15px rgba(218, 2, 14, 0.4);
+    transition: var(--transition);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999;
+}
+
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--dark-red);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(218, 2, 14, 0.6);
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotateY(-15deg) rotateX(5deg);
+    }
+    50% {
+        transform: translateY(-20px) rotateY(-15deg) rotateX(5deg);
+    }
+}
+
+@keyframes floatIcon {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(218, 2, 14, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(218, 2, 14, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(218, 2, 14, 0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(218, 2, 14, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(218, 2, 14, 0.8), 0 0 30px rgba(218, 2, 14, 0.6);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes moveBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Mobile First Fixes */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Header Mobile Fixes */
+@media (max-width: 991px) {
+    .header {
+        padding: 1rem 3%;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
     
-    <!--box icons-->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    .logo {
+        font-size: 1.8rem;
+        gap: 0.5rem;
+    }
     
-    <!--google fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
+    .logo-img {
+        width: 35px;
+        height: 35px;
+    }
     
-    <!--custom css-->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <!--header design-->
-    <header class="header">
-        <a href="#" class="logo">
-            <img src="unnamed.jpg" alt="Fidus Family Logo" class="logo-img">
-            <span class="logo-text">Fidus Pung Gandong</span>
-        </a>
-
-        <i class='bx bx-menu' id="menu-icon"></i>
-
-        <nav class="navbar">
-            <a href="#home" class="active">Home</a>
-            <a href="#about">About</a>
-            <a href="#photos">Gallery</a>
-            <a href="#family">Family</a>
-            <a href="#contact">Contact</a>
-            <a href="#" class="logout-btn" id="logoutBtn">
-                <i class='bx bx-log-out'></i>
-                <span>Logout</span>
-            </a>
-        </nav>  
-    </header>
-
-    <!--home section design-->
-    <section class="home" id="home">
-        <div class="home-content">
-            <h3>Hello, Welcome to</h3>
-            <h1>Fidus <span>Family</span></h1>
-            <h3 class="tagline">We Are <span class="typing-text">A Harmonious Family</span></h3>
-            <p>A loving, adventurous, and cheerful family sharing our journey, special moments, and daily life experiences with the world.</p>
-            <div class="social-media">
-                <a href="https://www.instagram.com/"><i class='bx bxl-instagram' ></i></a>
-                <a href="#"><i class='bx bxl-facebook' ></i></a>
-                <a href="https://www.tiktok.com/@florensiano7"><i class='bx bxl-tiktok' ></i></a>
-                <a href="#"><i class='bx bxl-youtube' ></i></a>
-            </div>
-            <a href="#" class="btn">Explore Our Family</a>
-        </div>
-
-        <div class="home-img">
-            <div class="img-container">
-                <img src="fidus4.jpg" alt="Fidus Family" class="main-img">
-                <div class="img-frame"></div>
-                <div class="floating-icons">
-                    <i class='bx bx-heart'></i>
-                    <i class='bx bx-home'></i>
-                    <i class='bx bx-star'></i>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Scroll indicator -->
-        <div class="scroll-down">
-            <a href="#about">
-                <i class='bx bx-chevron-down'></i>
-                <span>Scroll Down</span>
-            </a>
-        </div>
-    </section>
-
-    <!--about section design-->
-    <section class="about" id="about">
-        <div class="about-img">
-            <div class="img-wrapper">
-                <img src="fidus12.jpg" alt="About Fidus Family">
-                <div class="img-overlay"></div>
-            </div>
-        </div>
-
-        <div class="about-content">
-            <h2 class="heading">About <span>Our Family</span></h2>
-            <h3>Keluarga Besar Fidus</h3>
-            <p>Selamat datang di situs web keluarga kami! Kami adalah keluarga yang penuh kasih, petualangan, dan keceriaan. Di sini, Anda akan menemukan cerita tentang kehidupan kita sehari-hari, momen spesial, dan berbagai pengalaman yang kami bagikan bersama.</p>
-            <p>Keluarga kami terdiri dari berbagai generasi yang saling mendukung dan menginspirasi. Kami percaya bahwa kebahagiaan ditemukan dalam momen-momen kecil bersama, dan itulah yang ingin kami bagikan dengan Anda.</p>
-            <div class="family-stats">
-                <div class="stat">
-                    <h4>25+</h4>
-                    <p>Family Members</p>
-                </div>
-                <div class="stat">
-                    <h4>15</h4>
-                    <p>Years Together</p>
-                </div>
-                <div class="stat">
-                    <h4>50+</h4>
-                    <p>Happy Memories</p>
-                </div>
-            </div>
-            <a href="#family" class="btn">Meet Our Family</a>
-        </div>
-    </section>
-
-    <!--family values section-->
-    <section class="values" id="values">
-        <h2 class="heading">Our Family <span>Values</span></h2>
-        <p class="section-subtitle">The principles that guide our family journey</p>
-        
-        <div class="values-container">
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class='bx bx-heart-circle'></i>
-                </div>
-                <h3>Love & Care</h3>
-                <p>Providing unconditional love and affection to every family member.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class='bx bx-group'></i>
-                </div>
-                <h3>Togetherness</h3>
-                <p>We believe that togetherness is the key to strong family relationships.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class='bx bx-chat'></i>
-                </div>
-                <h3>Open Communication</h3>
-                <p>Communicating honestly and openly to build trust and understanding.</p>
-            </div>
-            
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class='bx bx-compass'></i>
-                </div>
-                <h3>Adventure</h3>
-                <p>Exploring the world together to create beautiful lifelong memories.</p>
-            </div>
-        </div>
-    </section>
-
-    <!--photos section design-->
-    <section class="photos" id="photos">
-        <h2 class="heading">Family <span>Gallery</span></h2>
-        <p class="section-subtitle">Capturing precious moments through the years</p>
-
-        <div class="gallery-controls">
-            <button class="filter-btn active" data-filter="all">All Photos</button>
-            <button class="filter-btn" data-filter="celebration">Celebrations</button>
-            <button class="filter-btn" data-filter="vacation">Vacations</button>
-            <button class="filter-btn" data-filter="daily">Daily Life</button>
-        </div>
-
-        <div class="photos-container">
-            <div class="photos-box" data-category="celebration">
-                <img src="fidus10.jpeg" alt="Family Celebration">
-                <div class="photos-layer">
-                    <h4>Family Celebration</h4>
-                    <p>Celebrating special occasions together with joy and laughter.</p>
-                    <div class="photo-actions">
-                        <a href="#" class="zoom-btn"><i class='bx bx-zoom-in'></i></a>
-                        <a href="fidus10.jpeg" download="fidus10.jpeg" class="download-btn"><i class='bx bx-download'></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="photos-box" data-category="vacation">
-                <img src="fidus11.jpeg" alt="Family Vacation">
-                <div class="photos-layer">
-                    <h4>Beach Vacation</h4>
-                    <p>Creating beautiful memories by the sea during our annual family trip.</p>
-                    <div class="photo-actions">
-                        <a href="#" class="zoom-btn"><i class='bx bx-zoom-in'></i></a>
-                        <a href="fidus11.jpeg" download="fidus11.jpeg" class="download-btn"><i class='bx bx-download'></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="photos-box" data-category="daily">
-                <img src="fidus6.jpg" alt="Family Dinner">
-                <div class="photos-layer">
-                    <h4>Family Dinner</h4>
-                    <p>Sharing stories and delicious meals around the dinner table.</p>
-                    <div class="photo-actions">
-                        <a href="#" class="zoom-btn"><i class='bx bx-zoom-in'></i></a>
-                        <a href="fidus6.jpg" download="fidus6.jpg" class="download-btn"><i class='bx bx-download'></i></a>
-                    </div>
-                </div>      
-            </div>
-
-            <div class="photos-box" data-category="celebration">
-                <img src="fidus9.jpeg" alt="Birthday Party">
-                <div class="photos-layer">
-                    <h4>Birthday Party</h4>
-                    <p>Celebrating another year of life with love and cheer.</p>
-                    <div class="photo-actions">
-                        <a href="#" class="zoom-btn"><i class='bx bx-zoom-in'></i></a>
-                        <a href="fidus9.jpeg" download="fidus9.jpeg" class="download-btn"><i class='bx bx-download'></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="photos-box" data-category="vacation">
-                <img src="fidus2.jpg" alt="Mountain Trip">
-                <div class="photos-layer">
-                    <h4>Mountain Adventure</h4>
-                    <p>Exploring nature and challenging ourselves with outdoor activities.</p>
-                    <div class="photo-actions">
-                        <a href="#" class="zoom-btn"><i class='bx bx-zoom-in'></i></a>
-                        <a href="fidus2.jpg" download="fidus2.jpg" class="download-btn"><i class='bx bx-download'></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="photos-box" data-category="daily">
-                <img src="fidus3.jpg" alt="Game Night">
-                <div class="photos-layer">
-                    <h4>Family Game Night</h4>
-                    <p>Fun and laughter during our weekly family game sessions.</p>
-                    <div class="photo-actions">
-                        <a href="#" class="zoom-btn"><i class='bx bx-zoom-in'></i></a>
-                        <a href="fidus3.jpg" download="fidus3.jpg" class="download-btn"><i class='bx bx-download'></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="view-more">
-            <a href="#" class="btn">View More Photos</a>
-        </div>
-    </section>
-
-    <!--family members section-->
-    <section class="family" id="family">
-        <h2 class="heading">Meet Our <span>Family</span></h2>
-        <p class="section-subtitle">The wonderful people who make our family complete</p>
-        
-        <div class="family-container">
-            <div class="family-card">
-                <div class="member-img">
-                    <img src="guido.jpg" alt="Grandparents">
-                </div>
-                <h3>Guido</h3>
-                <p>The foundation of our family, providing wisdom and unconditional love.</p>
-            </div>
-            
-            <div class="family-card">
-                <div class="member-img">
-                    <img src="hasriati.jpg" alt="Parents">
-                </div>
-                <h3>Hasriati</h3>
-                <p>The guiding stars who nurture and support each family member.</p>
-            </div>
-            
-            <div class="family-card">
-                <div class="member-img">
-                    <img src="fidus7.jpg" alt="Children">
-                </div>
-                <h3>Children</h3>
-                <p>The joy and energy that keep our family young and vibrant.</p>
-            </div>
-            
-            <div class="family-card">
-                <div class="member-img">
-                    <img src="fidus8.jpg" alt="Extended Family">
-                </div>
-                <h3>Extended Family</h3>
-                <p>Cousins, uncles, aunts - our extended network of love and support.</p>
-            </div>
-        </div>
-    </section>
-
-    <!--contact section-->
-    <section class="contact" id="contact">
-        <h2 class="heading">Get In <span>Touch</span></h2>
-        <p class="section-subtitle">We'd love to hear from you and connect with other families</p>
-        
-        <div class="contact-container">
-            <div class="contact-info">
-                <div class="info-box">
-                    <i class='bx bx-map'></i>
-                    <div>
-                        <h3>Our Address</h3>
-                        <p>Family Home, Cilincing, Jakarta Utara</p>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <i class='bx bx-envelope'></i>
-                    <div>
-                        <h3>Email Us</h3>
-                        <p>erasmus035@gmail.com</p>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <i class='bx bx-phone'></i>
-                    <div>
-                        <h3>Call Us</h3>
-                        <p>+62 8951 0897 143</p>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <i class='bx bx-time-five'></i>
-                    <div>
-                        <h3>Family Time</h3>
-                        <p>Sunday Gatherings: 10 AM - 4 PM</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="contact-form">
-                <form action="#">
-                    <div class="input-box">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="input-box">
-                        <input type="text" placeholder="Subject" required>
-                    </div>
-                    <textarea placeholder="Your Message" rows="6" required></textarea>
-                    <button type="submit" class="btn">Kirim Pesan Puki</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!--footer-->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>Fidus Family</h3>
-                <p>A loving, adventurous, and cheerful family sharing our journey with the world.</p>
-                <div class="social-media">
-                    <a href="https://www.instagram.com/" target="_blank"><i class='bx bxl-instagram' ></i></a>
-                    <a href="#"><i class='bx bxl-facebook' ></i></a>
-                    <a href="https://www.tiktok.com/@florensiano7"><i class='bx bxl-tiktok' ></i></a>
-                    <a href="#"><i class='bx bxl-youtube' ></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#photos">Gallery</a></li>
-                    <li><a href="#family">Family</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Family Values</h3>
-                <ul>
-                    <li><a href="#values">Love & Care</a></li>
-                    <li><a href="#values">Togetherness</a></li>
-                    <li><a href="#values">Communication</a></li>
-                    <li><a href="#values">Adventure</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Newsletter</h3>
-                <p>Subscribe to get updates on our family adventures</p>
-                <div class="newsletter">
-                    <input type="email" placeholder="Your Email">
-                    <button type="submit"><i class='bx bx-send'></i></button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2023 Fidus Family. All Rights Reserved. | Made with <i class='bx bx-heart'></i> by Family</p>
-        </div>
-    </footer>
-
-    <!--back to top button-->
-    <a href="#home" class="back-to-top">
-        <i class='bx bx-chevron-up'></i>
-    </a>
-
-    <!--custom js-->
-    <script src="main.js"></script>
+    .logo-text {
+        font-size: 1.4rem;
+        display: block;
+    }
     
-</body>
-</html>
+    #menu-icon {
+        display: block;
+        font-size: 2.5rem;
+        color: var(--white-color);
+        cursor: pointer;
+        z-index: 1001;
+    }
+    
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 5rem 2rem 2rem;
+        transition: left 0.3s ease;
+        z-index: 999;
+        overflow-y: auto;
+    }
+    
+    .navbar.active {
+        left: 0;
+    }
+    
+    .navbar a {
+        display: block;
+        padding: 1.5rem 0;
+        font-size: 1.6rem;
+        color: var(--white-color);
+        border-bottom: 1px solid rgba(218, 2, 14, 0.2);
+        text-align: left;
+    }
+    
+    .navbar a:hover,
+    .navbar a.active {
+        background: rgba(218, 2, 14, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding-left: 1rem;
+    }
+    
+    .logout-btn {
+        display: none;
+    }
+}
+
+/* Mobile Specific Fixes */
+@media (max-width: 768px) {
+    html {
+        font-size: 45%;
+    }
+    
+    .header {
+        padding: 0.8rem 3%;
+    }
+    
+    .logo {
+        font-size: 1.6rem;
+    }
+    
+    .logo-img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    #menu-icon {
+        font-size: 2.2rem;
+    }
+    
+    section {
+        padding: 6rem 3% 3rem;
+        min-height: auto;
+    }
+    
+    .home {
+        flex-direction: column;
+        text-align: center;
+        padding: 5rem 3% 3rem;
+        min-height: 100vh;
+    }
+    
+    .home-content {
+        order: 2;
+        margin-top: 2rem;
+    }
+    
+    .home-img {
+        order: 1;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .home-content h3 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .home-content h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+    }
+    
+    .tagline {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .home-content p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    
+    .social-media {
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+    
+    .social-media a {
+        width: 4rem;
+        height: 4rem;
+        font-size: 2rem;
+    }
+    
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.4rem;
+    }
+    
+    .heading {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .section-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .about {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .about-content {
+        text-align: center;
+    }
+    
+    .about-content h2 {
+        text-align: center;
+    }
+    
+    .about-content p {
+        font-size: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    .family-stats {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .stat {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(218, 2, 14, 0.1);
+        border-radius: 10px;
+        min-width: 80px;
+    }
+    
+    .stat h4 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat p {
+        font-size: 1.2rem;
+    }
+    
+    .values-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .value-card {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+    
+    .value-card h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .value-card p {
+        font-size: 1.4rem;
+        line-height: 1.6;
+    }
+    
+    .photos-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .photos-box {
+        height: 200px;
+    }
+    
+    .photos-layer h4 {
+        font-size: 1.6rem;
+    }
+    
+    .photos-layer p {
+        font-size: 1.2rem;
+    }
+    
+    .gallery-controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .filter-btn {
+        width: 100%;
+        max-width: 200px;
+        padding: 1rem;
+        font-size: 1.4rem;
+    }
+    
+    .family-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .family-card {
+        height: 250px;
+    }
+    
+    .family-card h3 {
+        font-size: 1.6rem;
+    }
+    
+    .family-card p {
+        font-size: 1.3rem;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .info-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .info-box i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .info-box h3 {
+        font-size: 1.6rem;
+    }
+    
+    .info-box p {
+        font-size: 1.4rem;
+    }
+    
+    .contact-form {
+        padding: 2rem;
+    }
+    
+    .input-box {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .input-box input,
+    .contact-form textarea {
+        padding: 1rem;
+        font-size: 1.4rem;
+    }
+    
+    .newsletter {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .newsletter input {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.4rem;
+    }
+    
+    .newsletter button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.4rem;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-col h3 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    
+    .footer-col p {
+        font-size: 1.4rem;
+    }
+    
+    .footer-col ul li a {
+        font-size: 1.4rem;
+    }
+}
+
+/* Small Mobile Fixes */
+@media (max-width: 480px) {
+    html {
+        font-size: 40%;
+    }
+    
+    .header {
+        padding: 0.5rem 3%;
+    }
+    
+    .logo {
+        font-size: 1.4rem;
+    }
+    
+    .logo-img {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .logo-text {
+        font-size: 1rem;
+    }
+    
+    #menu-icon {
+        font-size: 2rem;
+    }
+    
+    section {
+        padding: 5rem 5% 2rem;
+    }
+    
+    .home {
+        padding: 4rem 5% 2rem;
+    }
+    
+    .home-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .home-content h3 {
+        font-size: 1.8rem;
+    }
+    
+    .tagline {
+        font-size: 1.6rem;
+    }
+    
+    .home-content p {
+        font-size: 1.4rem;
+    }
+    
+    .heading {
+        font-size: 2.5rem;
+    }
+    
+    .photos-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .photos-box {
+        height: 250px;
+    }
+    
+    .family-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .family-card {
+        height: 300px;
+    }
+    
+    .family-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .stat {
+        min-width: auto;
+    }
+    
+    .social-media {
+        gap: 1rem;
+    }
+    
+    .social-media a {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.3rem;
+    }
+    
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 2rem;
+    }
+}
+
+/* Landscape Mobile Fixes */
+@media (max-width: 768px) and (orientation: landscape) {
+    .home {
+        min-height: auto;
+        padding: 3rem 3% 2rem;
+    }
+    
+    .home-content {
+        margin-top: 1rem;
+    }
+    
+    .home-img {
+        max-width: 200px;
+    }
+    
+    .home-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1.6rem;
+    }
+    
+    .home-content p {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* iOS Safari Fixes */
+@supports (-webkit-touch-callout: none) {
+    .header {
+        position: fixed;
+        -webkit-backface-visibility: hidden;
+    }
+    
+    .navbar {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    section {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Android Fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .navbar {
+        -webkit-transform: translateZ(0);
+    }
+    
+    .photos-box {
+        -webkit-transform: translateZ(0);
+    }
+    
+    .family-card {
+        -webkit-transform: translateZ(0);
+    }
+}
