@@ -49,15 +49,55 @@ if (logoutBtn) {
 /*==================== toggle icon navbar ====================*/
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
+let menuOverlay = document.querySelector('#menuOverlay');
 
 menuIcon.onclick = () => {
     menuIcon.classList.toggle('bx-x');
     navbar.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (navbar.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
 }
+
+// Close menu when clicking on overlay
+menuOverlay.onclick = () => {
+    menuIcon.classList.remove('bx-x');
+    navbar.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Close menu when clicking on nav links (mobile)
+let mobileNavLinks = document.querySelectorAll('.navbar a');
+mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 991) {
+            menuIcon.classList.remove('bx-x');
+            navbar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 991) {
+        menuIcon.classList.remove('bx-x');
+        navbar.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+});
 
 /*==================== scroll section active link ====================*/
 let sections = document.querySelectorAll('section');
-let navLinks = document.querySelectorAll('header nav a');
+let headerNavLinks = document.querySelectorAll('header nav a');
 
 window.onscroll = () => {
     sections.forEach(sec => {
@@ -67,9 +107,9 @@ window.onscroll = () => {
         let id = sec.getAttribute('id');
 
         if(top >= offset && top < offset + height) {
-            navLinks.forEach(links => {
+            headerNavLinks.forEach(links => {
                 links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+                document.querySelector(`header nav a[href*="${id}"]`).classList.add('active');
             });
         };
     });
